@@ -1,0 +1,22 @@
+{
+  "name": "Wedding Invite",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "pnpmVersion": "latest",
+    },
+  },
+
+  "forwardPorts": [3000, 4963],
+
+  "customizations": {
+    "zed": {
+      "extensions": ["html", "tailwind", "prettier", "eslint"],
+    },
+  },
+
+  "postCreateCommand": "pnpm install",
+}

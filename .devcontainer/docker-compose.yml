@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/javascript-node:22-bookworm
+    container_name: wedding-invite-app
+    volumes:
+      - ..:/workspace:cached
+
+    command: sleep infinity
+
+    environment:
+      - DATABASE_URL=postgresql://postgres:wedding_pass@db:5432/wedding_db
+      - NODE_ENV=development
+
+    ports:
+      - "3000:3000"
+      - "4963:4963"
+
+    depends_on:
+      - db
+
+    user: node
+
+  db:
+    image: postgres:16-alpine
+    container_name: wedding-invite-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=wedding_pass
+      - POSTGRES_DB=wedding_db
+    # ports:
+    #   - "5432:5432"
+    volumes:
+      - wedding-db-data:/var/lib/postgresql/data
+
+volumes:
+  wedding-db-data:
