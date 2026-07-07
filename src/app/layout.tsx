@@ -28,7 +28,7 @@ const marck = Marck_Script({
 });
 
 export const metadata: Metadata = {
-    title: "Алексей & Алена — 20.06.2026",
+    title: "В&А — 28.08.2026",
     description: "Приглашение на нашу свадьбу",
 };
 

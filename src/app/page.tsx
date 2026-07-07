@@ -4,6 +4,8 @@ import Image from "next/image";
 // import RSVPForm from "./components/RSVPForm";
 import Marquee from "@/components/Marquee";
 import Timeline from "@/components/Timeline";
+import Invitation from "@/components/Invitation";
+import RSVPForm from "@/components/RSVPForm";
 
 export default function WeddingPage() {
     return (
@@ -42,7 +44,9 @@ export default function WeddingPage() {
                 </div>
             </section>
 
+            <Invitation />
             <Timeline />
+            <RSVPForm />
         </main>
     );
 }
