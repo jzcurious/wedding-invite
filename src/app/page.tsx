@@ -1,11 +1,13 @@
 import React from "react";
 import Image from "next/image";
 
-// import RSVPForm from "./components/RSVPForm";
 import Marquee from "@/components/Marquee";
 import Timeline from "@/components/Timeline";
 import Invitation from "@/components/Invitation";
 import RSVPForm from "@/components/RSVPForm";
+import CountdownTimer from "@/components/CountdownTimer";
+import TelegramChat from "@/components/TelegramChat";
+import FooterSection from "@/components/FooterSection";
 
 export default function WeddingPage() {
     return (
@@ -47,6 +49,9 @@ export default function WeddingPage() {
             <Invitation />
             <Timeline />
             <RSVPForm />
+            <TelegramChat telegramLink="https://t.me/твой_чат" />
+            <CountdownTimer />
+            <FooterSection />
         </main>
     );
 }
