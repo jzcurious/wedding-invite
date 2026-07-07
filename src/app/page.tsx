@@ -3,12 +3,13 @@ import Image from "next/image";
 
 // import RSVPForm from "./components/RSVPForm";
 import Marquee from "@/components/Marquee";
+import Timeline from "@/components/Timeline";
 
 export default function WeddingPage() {
     return (
         <main className="min-h-screen w-full overflow-x-hidden bg-wedding-cream flex flex-col items-center">
-            {/* СЕКЦИЯ 1: ГЛАВНАЯ (Центральный скриншот) */}
             <Marquee />
+            {/* СЕКЦИЯ 1: ГЛАВНАЯ (Центральный скриншот) */}
             <section className="relative min-h-screen flex flex-col items-center justify-center p-8 bg-white overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('/leaf-shadow.jpg')] bg-cover" />
 
@@ -23,7 +24,7 @@ export default function WeddingPage() {
                     <div className="absolute inset-0 border border-dashed border-stone-300 z-10" />
                     <Image
                         src="/couple.jpeg"
-                        alt="Алексей и Алена"
+                        alt="Владимир & Александра"
                         fill
                         priority
                         className="object-cover"
@@ -40,6 +41,8 @@ export default function WeddingPage() {
                     </p>
                 </div>
             </section>
+
+            <Timeline />
         </main>
     );
 }
