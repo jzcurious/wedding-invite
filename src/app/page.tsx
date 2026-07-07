@@ -1,12 +1,14 @@
 import React from "react";
 import Image from "next/image";
 
-// import RSVPForm from "@/components/RSVPForm";
+// import RSVPForm from "./components/RSVPForm";
+import Marquee from "@/components/Marquee";
 
 export default function WeddingPage() {
     return (
-        <main className="min-h-screen bg-weddingCream text-stone-800 max-w-md mx-auto shadow-2xl overflow-x-hidden">
+        <main className="min-h-screen w-full overflow-x-hidden bg-wedding-cream flex flex-col items-center">
             {/* СЕКЦИЯ 1: ГЛАВНАЯ (Центральный скриншот) */}
+            <Marquee />
             <section className="relative min-h-screen flex flex-col items-center justify-center p-8 bg-white overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pointer-events-none bg-[url('/leaf-shadow.jpg')] bg-cover" />
 
