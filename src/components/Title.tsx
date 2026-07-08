@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ZoomIn from "./ZoomIn";
 
 const Title = () => {
     return (
@@ -8,9 +9,11 @@ const Title = () => {
             <p className="font-marck italic text-2xl mb-4 text-wedding-red">
                 в этот день...
             </p>
-            <h1 className="font-playfair text-4xl text-center mb-10 tracking-widest uppercase text-wedding-red">
-                Владимир & Александра
-            </h1>
+            <ZoomIn>
+                <h1 className="font-playfair text-4xl text-center mb-10 tracking-widest uppercase text-wedding-red">
+                    Владимир & Александра
+                </h1>
+            </ZoomIn>
 
             <div className="relative w-64 h-80 border-12 border-white shadow-xl rotate-2">
                 <div className="absolute inset-0 border border-dashed border-stone-300 z-10" />

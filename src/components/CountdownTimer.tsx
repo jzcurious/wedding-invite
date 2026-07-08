@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
+import FadeIn from "@/components/FadeIn";
 
 // 1. КОМПОНЕНТ ЯЧЕЙКИ ТАЙМЕРА (сделали числа плотнее)
 const TimeUnit = ({ value, label }: { value: number; label: string }) => (
@@ -52,31 +52,33 @@ const CountdownTimer = () => {
     return (
         <section className="relative bg-wedding-cream pt-0 pb-0 flex flex-col items-center overflow-hidden">
             {/* ЗАГОЛОВОК */}
-            <div className="text-center mb-10 px-6 mt-10">
-                <h2 className="font-playfair text-3xl text-stone-800 leading-tight mb-2 uppercase tracking-wide">
-                    До дня свадьбы <br /> совсем немного
-                </h2>
-                <p className="font-marck text-2xl text-wedding-red/80">
-                    мы очень ждем!
-                </p>
-            </div>
+            <FadeIn direction="down">
+                <div className="text-center mb-10 px-6 mt-10">
+                    <h2 className="font-playfair text-3xl text-stone-800 leading-tight mb-2 uppercase tracking-wide">
+                        До дня свадьбы <br /> совсем немного
+                    </h2>
+                    <p className="font-marck text-2xl text-wedding-red/80">
+                        мы очень ждем!
+                    </p>
+                </div>
 
-            {/* ЦИФРЫ ТАЙМЕРА (Сделали общую верстку компактнее) */}
-            <div className="flex gap-2 sm:gap-5 bg-white/60 p-6 py-8 rounded-3xl shadow-[0_15px_40px_rgba(0,0,0,0.02)] border border-white">
-                <TimeUnit value={timeLeft.days} label="дней" />
-                <div className="text-stone-300 self-center font-light text-2xl pb-5 px-1">
-                    :
+                {/* ЦИФРЫ ТАЙМЕРА (Сделали общую верстку компактнее) */}
+                <div className="flex gap-2 sm:gap-5 bg-white/60 p-6 py-8 rounded-3xl shadow-[0_15px_40px_rgba(0,0,0,0.02)] border border-white">
+                    <TimeUnit value={timeLeft.days} label="дней" />
+                    <div className="text-stone-300 self-center font-light text-2xl pb-5 px-1">
+                        :
+                    </div>
+                    <TimeUnit value={timeLeft.hours} label="часа" />
+                    <div className="text-stone-300 self-center font-light text-2xl pb-5 px-1">
+                        :
+                    </div>
+                    <TimeUnit value={timeLeft.minutes} label="минут" />
+                    <div className="text-stone-300 self-center font-light text-2xl pb-5 px-1">
+                        :
+                    </div>
+                    <TimeUnit value={timeLeft.seconds} label="секунд" />
                 </div>
-                <TimeUnit value={timeLeft.hours} label="часа" />
-                <div className="text-stone-300 self-center font-light text-2xl pb-5 px-1">
-                    :
-                </div>
-                <TimeUnit value={timeLeft.minutes} label="минут" />
-                <div className="text-stone-300 self-center font-light text-2xl pb-5 px-1">
-                    :
-                </div>
-                <TimeUnit value={timeLeft.seconds} label="секунд" />
-            </div>
+            </FadeIn>
 
             {/* ВАШ НОВЫЙ КОМПОНЕНТ ДЕЛИМИТЕР (вместо старой верстки) */}
             {/* <Delimiter className="mt-16" /> */}

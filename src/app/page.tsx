@@ -13,13 +13,17 @@ export default function WeddingPage() {
         <main className="min-h-screen w-full overflow-x-hidden bg-wedding-cream flex flex-col items-center">
             <Marquee />
             <Title />
+
             <Invitation />
             <Delimiter />
+
             <Timeline />
             <Delimiter />
+
             <RSVPForm />
             <TelegramChat telegramLink="https://t.me/твой_чат" />
             <Delimiter />
+
             <CountdownTimer />
             <FooterSection />
         </main>
