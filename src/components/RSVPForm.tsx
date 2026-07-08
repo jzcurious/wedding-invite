@@ -13,7 +13,10 @@ const RSVPForm = () => {
         const formData = new FormData(e.currentTarget);
         const data = {
             name: formData.get("name"),
-            isComing: formData.get("attending") === "yes",
+            // Конвертируем "yes"/"no" в булевы значения
+            isComingRegistration:
+                formData.get("isComingRegistration") === "yes",
+            isComingBanquet: formData.get("isComingBanquet") === "yes",
             additionalNames: formData.get("additionalNames"),
             dietaryNotes: formData.get("dietary"),
             preferredDrink: formData.getAll("drinks").join(", "),
@@ -70,24 +73,24 @@ const RSVPForm = () => {
                         </p>
 
                         <form onSubmit={handleSubmit} className="space-y-12">
-                            {/* ВОПРОС: ПРИДЕТЕ ЛИ? */}
+                            {/* ВОПРОС 1: РЕГИСТРАЦИЯ */}
                             <div className="space-y-5">
                                 <p className="font-cormorant text-xl text-stone-800 italic border-b border-stone-100 pb-2">
-                                    Вы придете?
+                                    Придете на регистрацию? (11:10)
                                 </p>
-                                <div className="space-y-4">
+                                <div className="space-y-3">
                                     {[
-                                        "Конечно, да",
+                                        "Да, с удовольствием",
                                         "К сожалению, не смогу",
                                     ].map((option, i) => (
                                         <label
-                                            key={i}
+                                            key={`reg-${i}`}
                                             className="flex items-center group cursor-pointer"
                                         >
                                             <div className="relative flex items-center justify-center">
                                                 <input
                                                     type="radio"
-                                                    name="attending"
+                                                    name="isComingRegistration" // Имя совпадает с полем в вашей DB
                                                     value={
                                                         i === 0 ? "yes" : "no"
                                                     }
@@ -101,6 +104,41 @@ const RSVPForm = () => {
                                             </span>
                                         </label>
                                     ))}
+                                </div>
+                            </div>
+
+                            {/* ВОПРОС 2: БАНКЕТ */}
+                            <div className="space-y-5">
+                                <p className="font-cormorant text-xl text-stone-800 italic border-b border-stone-100 pb-2">
+                                    Будете ли вы на банкете? (16:00)
+                                </p>
+                                <div className="space-y-3">
+                                    {["Да, буду", "Не получится"].map(
+                                        (option, i) => (
+                                            <label
+                                                key={`banquet-${i}`}
+                                                className="flex items-center group cursor-pointer"
+                                            >
+                                                <div className="relative flex items-center justify-center">
+                                                    <input
+                                                        type="radio"
+                                                        name="isComingBanquet" // Имя совпадает с полем в вашей DB
+                                                        value={
+                                                            i === 0
+                                                                ? "yes"
+                                                                : "no"
+                                                        }
+                                                        required
+                                                        className="peer appearance-none w-5 h-5 border border-stone-200 checked:border-wedding-red transition-all rounded-full"
+                                                    />
+                                                    <div className="absolute w-2 h-2 bg-wedding-red rounded-full scale-0 peer-checked:scale-100 transition-transform" />
+                                                </div>
+                                                <span className="ml-4 font-cormorant text-lg text-stone-600 group-hover:text-wedding-red transition-colors">
+                                                    {option}
+                                                </span>
+                                            </label>
+                                        ),
+                                    )}
                                 </div>
                             </div>
 

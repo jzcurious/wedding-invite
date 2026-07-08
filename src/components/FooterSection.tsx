@@ -47,8 +47,10 @@ const FooterSection = () => {
                         <Image
                             src="/images/ring.png"
                             alt="Свадебное кольцо"
-                            fill
                             className="object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.1)]"
+                            width={600}
+                            height={600}
+                            loading="eager"
                         />
                     </div>
                 </FadeIn>
