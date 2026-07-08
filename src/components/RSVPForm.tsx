@@ -32,7 +32,7 @@ const RSVPForm = () => {
 
     if (submitted) {
         return (
-            <div className="bg-wedding-cream text-wedding-red p-16 text-center animate-fade-in border-y border-wedding-red/10">
+            <div className="bg-wedding-cream text-wedding-red mt-20 p-16 text-center animate-fade-in border-y border-wedding-red/10">
                 <h3 className="font-playfair text-3xl mb-4">Благодарим!</h3>
                 <p className="font-cormorant text-stone-600 italic">
                     Ваш ответ успешно сохранен. <br /> До встречи на свадьбе!
