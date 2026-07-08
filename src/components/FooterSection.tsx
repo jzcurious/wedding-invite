@@ -2,10 +2,13 @@ import React from "react";
 import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import ZoomIn from "./ZoomIn";
+import CelebrationEffect from "./CelebrationEffect";
 
 const FooterSection = () => {
     return (
         <section className="relative bg-wedding-cream min-h-[70vh] flex flex-col items-center justify-center px-8 py-20 overflow-hidden pt-0">
+            <CelebrationEffect />
+
             {/* ОГРОМНОЕ ФОНОВОЕ СЕРДЦЕ (теперь очень нежное и прозрачное) */}
             <div className="absolute inset-0 flex items-center justify-center z-0 pointer-events-none">
                 <ZoomIn className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none overflow-hidden">
