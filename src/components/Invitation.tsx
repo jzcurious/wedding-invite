@@ -11,7 +11,7 @@ const Invitation = () => {
 
     return (
         // Изменили фон на wedding-cream и текст на wedding-red
-        <section className="bg-wedding-cream text-wedding-red p-8 py-16 flex flex-col items-center text-center">
+        <section className="bg-wedding-cream text-wedding-red p-8 py-14 flex flex-col items-center text-center">
             {/* ПРИВЕТСТВЕННЫЙ ТЕКСТ */}
             <div className="max-w-xs space-y-6 mb-12">
                 <FadeIn>

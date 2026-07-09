@@ -28,7 +28,7 @@ const Timeline = () => {
     ];
 
     return (
-        <section className="relative bg-wedding-cream py-20 px-4 pb-10 flex flex-col items-center">
+        <section className="relative bg-wedding-cream py-14 px-4 flex flex-col items-center">
             {/* Заголовок */}
             <FadeIn>
                 <div className="text-center mb-16">

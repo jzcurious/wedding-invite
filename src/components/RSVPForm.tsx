@@ -70,7 +70,7 @@ const RSVPForm = () => {
     return (
         <section
             ref={formTopRef}
-            className="relative bg-wedding-cream py-16 px-6 pb-0"
+            className="relative bg-wedding-cream py-18 px-6 pb-0"
         >
             <FadeIn>
                 <div className="max-w-md mx-auto relative bg-white p-10 sm:p-14 shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-stone-100">

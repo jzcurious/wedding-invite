@@ -2,7 +2,7 @@ import FadeIn from "@/components/FadeIn";
 
 const TelegramChat = ({ telegramLink }: { telegramLink: string }) => {
     return (
-        <section className="bg-wedding-cream py-12 px-6 flex justify-center">
+        <section className="bg-wedding-cream py-12 pb-18 px-6 flex justify-center">
             <FadeIn direction="left">
                 <div className="relative w-full max-w-sm bg-white p-8 shadow-xl border border-stone-100">
                     {/* Декоративный элемент (ключик или линия, можно добавить свой) */}

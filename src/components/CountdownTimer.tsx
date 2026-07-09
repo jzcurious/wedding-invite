@@ -50,7 +50,7 @@ const CountdownTimer = () => {
     }, [targetDate]);
 
     return (
-        <section className="relative bg-wedding-cream pt-0 pb-0 flex flex-col items-center overflow-hidden">
+        <section className="relative bg-wedding-cream pt-8 pb-0 flex flex-col items-center overflow-hidden">
             {/* ЗАГОЛОВОК */}
             <FadeIn direction="down">
                 <div className="text-center mb-10 px-6 mt-10">
