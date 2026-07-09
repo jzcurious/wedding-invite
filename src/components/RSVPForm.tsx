@@ -1,38 +1,69 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import FadeIn from "@/components/FadeIn";
 
 const RSVPForm = () => {
     const [loading, setLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const formTopRef = useRef<HTMLDivElement>(null); // Для прокрутки
+
+    useEffect(() => {
+        if (submitted && formTopRef.current) {
+            formTopRef.current.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            });
+        }
+    }, [submitted]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
 
         const formData = new FormData(e.currentTarget);
+
+        // Формируем объект для отправки
         const data = {
             name: formData.get("name"),
-            // Конвертируем "yes"/"no" в булевы значения
             isComingRegistration:
                 formData.get("isComingRegistration") === "yes",
             isComingBanquet: formData.get("isComingBanquet") === "yes",
+            hasChildren: formData.get("hasChildren") === "yes",
             additionalNames: formData.get("additionalNames"),
             dietaryNotes: formData.get("dietary"),
+            // Собираем все выбранные чекбоксы алкоголя в одну строку
             preferredDrink: formData.getAll("drinks").join(", "),
         };
 
-        console.log("Отправка данных:", data);
+        try {
+            const response = await fetch("/api/rsvp", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
 
-        setTimeout(() => {
+            if (response.ok) {
+                setSubmitted(true); // Показываем сообщение об успехе и скроллим
+            } else {
+                const err = await response.json();
+                alert(err.error || "Произошла ошибка");
+            }
+        } catch (error) {
+            console.error("Fetch error:", error);
+            alert("Ошибка сети. Проверьте соединение.");
+        } finally {
             setLoading(false);
-            setSubmitted(true);
-        }, 1500);
+        }
     };
 
     if (submitted) {
         return (
-            <div className="bg-wedding-cream text-wedding-red mt-20 p-16 text-center animate-fade-in border-y border-wedding-red/10">
+            <div
+                ref={formTopRef}
+                className="bg-wedding-cream text-wedding-red mt-20 py-24 p-16 text-center animate-fade-in border-y border-wedding-red/10"
+            >
                 <h3 className="font-playfair text-3xl mb-4">Благодарим!</h3>
                 <p className="font-cormorant text-stone-600 italic">
                     Ваш ответ успешно сохранен. <br /> До встречи на свадьбе!
@@ -42,10 +73,13 @@ const RSVPForm = () => {
     }
 
     return (
-        <section className="relative bg-wedding-cream py-16 px-6 pb-0">
+        <section
+            ref={formTopRef}
+            className="relative bg-wedding-cream py-16 px-6 pb-0"
+        >
             <FadeIn>
                 <div className="max-w-md mx-auto relative bg-white p-10 sm:p-14 shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-stone-100">
-                    {/* ДЕКОРАТИВНАЯ СКРЕПКА (Золотая) */}
+                    {/* ДЕКОРАТИВНАЯ СКРЕПКА */}
                     <div className="absolute top-0 left-12 -translate-y-6 z-20">
                         <svg
                             width="35"
@@ -75,7 +109,7 @@ const RSVPForm = () => {
                         <form onSubmit={handleSubmit} className="space-y-12">
                             {/* ВОПРОС 1: РЕГИСТРАЦИЯ */}
                             <div className="space-y-5">
-                                <p className="font-cormorant text-xl text-stone-800 italic border-b border-stone-100 pb-2">
+                                <p className="font-cormorant text-xl text-stone-800 italic border-b border-stone-100 pb-2 text-balance">
                                     Придете на регистрацию? (11:10)
                                 </p>
                                 <div className="space-y-3">
@@ -87,19 +121,17 @@ const RSVPForm = () => {
                                             key={`reg-${i}`}
                                             className="flex items-center group cursor-pointer"
                                         >
-                                            <div className="relative flex items-center justify-center">
-                                                <input
-                                                    type="radio"
-                                                    name="isComingRegistration" // Имя совпадает с полем в вашей DB
-                                                    value={
-                                                        i === 0 ? "yes" : "no"
-                                                    }
-                                                    required
-                                                    className="peer appearance-none w-5 h-5 border border-stone-200 checked:border-wedding-red transition-all rounded-full"
-                                                />
-                                                <div className="absolute w-2 h-2 bg-wedding-red rounded-full scale-0 peer-checked:scale-100 transition-transform" />
+                                            <input
+                                                type="radio"
+                                                name="isComingRegistration"
+                                                value={i === 0 ? "yes" : "no"}
+                                                required
+                                                className="peer appearance-none w-5 h-5 border border-stone-200 checked:border-wedding-red transition-all rounded-full"
+                                            />
+                                            <div className="absolute w-5 h-5 flex items-center justify-center pointer-events-none">
+                                                <div className="w-2 h-2 bg-wedding-red rounded-full scale-0 peer-checked:scale-100 transition-transform" />
                                             </div>
-                                            <span className="ml-4 font-cormorant text-lg text-stone-600 group-hover:text-wedding-red transition-colors">
+                                            <span className="ml-8 font-cormorant text-lg text-stone-600 group-hover:text-wedding-red transition-colors">
                                                 {option}
                                             </span>
                                         </label>
@@ -109,7 +141,7 @@ const RSVPForm = () => {
 
                             {/* ВОПРОС 2: БАНКЕТ */}
                             <div className="space-y-5">
-                                <p className="font-cormorant text-xl text-stone-800 italic border-b border-stone-100 pb-2">
+                                <p className="font-cormorant text-xl text-stone-800 italic border-b border-stone-100 pb-2 text-balance">
                                     Будете ли вы на банкете? (16:00)
                                 </p>
                                 <div className="space-y-3">
@@ -119,26 +151,56 @@ const RSVPForm = () => {
                                                 key={`banquet-${i}`}
                                                 className="flex items-center group cursor-pointer"
                                             >
-                                                <div className="relative flex items-center justify-center">
-                                                    <input
-                                                        type="radio"
-                                                        name="isComingBanquet" // Имя совпадает с полем в вашей DB
-                                                        value={
-                                                            i === 0
-                                                                ? "yes"
-                                                                : "no"
-                                                        }
-                                                        required
-                                                        className="peer appearance-none w-5 h-5 border border-stone-200 checked:border-wedding-red transition-all rounded-full"
-                                                    />
-                                                    <div className="absolute w-2 h-2 bg-wedding-red rounded-full scale-0 peer-checked:scale-100 transition-transform" />
+                                                <input
+                                                    type="radio"
+                                                    name="isComingBanquet"
+                                                    value={
+                                                        i === 0 ? "yes" : "no"
+                                                    }
+                                                    required
+                                                    className="peer appearance-none w-5 h-5 border border-stone-200 checked:border-wedding-red transition-all rounded-full"
+                                                />
+                                                <div className="absolute w-5 h-5 flex items-center justify-center pointer-events-none">
+                                                    <div className="w-2 h-2 bg-wedding-red rounded-full scale-0 peer-checked:scale-100 transition-transform" />
                                                 </div>
-                                                <span className="ml-4 font-cormorant text-lg text-stone-600 group-hover:text-wedding-red transition-colors">
+                                                <span className="ml-8 font-cormorant text-lg text-stone-600 group-hover:text-wedding-red transition-colors">
                                                     {option}
                                                 </span>
                                             </label>
                                         ),
                                     )}
+                                </div>
+                            </div>
+
+                            {/* НОВЫЙ ВОПРОС: ДЕТИ */}
+                            <div className="space-y-5">
+                                <p className="font-cormorant text-xl text-stone-800 italic border-b border-stone-100 pb-2 text-balance">
+                                    Будут ли с вами дети?
+                                </p>
+                                <div className="space-y-3">
+                                    {[
+                                        "Да, планируем быть с детьми",
+                                        "Нет, будем без детей",
+                                    ].map((option, i) => (
+                                        <label
+                                            key={`kids-${i}`}
+                                            className="flex items-center group cursor-pointer"
+                                        >
+                                            <input
+                                                type="radio"
+                                                name="hasChildren"
+                                                value={i === 0 ? "yes" : "no"}
+                                                required
+                                                className="peer appearance-none w-5 h-5 border border-stone-200 checked:border-wedding-red transition-all rounded-full"
+                                            />
+                                            <div className="absolute w-5 h-5 flex items-center justify-center pointer-events-none">
+                                                <div className="w-2 h-2 bg-wedding-red rounded-full scale-0 peer-checked:scale-100 transition-transform" />
+                                            </div>
+                                            <span className="ml-8 font-cormorant text-lg text-stone-600 group-hover:text-wedding-red transition-colors">
+                                                {option}
+                                            </span>
+                                        </label>
+                                    ))}
                                 </div>
                             </div>
 
@@ -194,16 +256,16 @@ const RSVPForm = () => {
                                             key={drink}
                                             className="flex items-center group cursor-pointer"
                                         >
-                                            <div className="relative flex items-center justify-center">
-                                                <input
-                                                    type="checkbox"
-                                                    name="drinks"
-                                                    value={drink}
-                                                    className="peer appearance-none w-5 h-5 border border-stone-200 checked:border-wedding-red transition-all"
-                                                />
-                                                <div className="absolute w-2.5 h-2.5 bg-wedding-red scale-0 peer-checked:scale-100 transition-transform" />
+                                            <input
+                                                type="checkbox"
+                                                name="drinks"
+                                                value={drink}
+                                                className="peer appearance-none w-5 h-5 border border-stone-200 checked:border-wedding-red transition-all"
+                                            />
+                                            <div className="absolute w-5 h-5 flex items-center justify-center pointer-events-none">
+                                                <div className="w-2.5 h-2.5 bg-wedding-red scale-0 peer-checked:scale-100 transition-transform" />
                                             </div>
-                                            <span className="ml-4 font-cormorant text-lg text-stone-600 group-hover:text-wedding-red transition-colors">
+                                            <span className="ml-8 font-cormorant text-lg text-stone-600 group-hover:text-wedding-red transition-colors">
                                                 {drink}
                                             </span>
                                         </label>
