@@ -17,10 +17,18 @@ const Timeline = () => {
             address: "ул. Красный Путь, 70А, банкетный зал «Барракуда»",
             mapLink: "https://go.2gis.com/UvnMI",
         },
+        {
+            time: "22:00",
+            title: "Завершение вечера",
+            desc: "Наше торжество подходит к концу, но теплые воспоминания останутся навсегда",
+            // Адрес можно не дублировать, так как он совпадает с банкетом
+            address: "",
+            mapLink: "",
+        },
     ];
 
     return (
-        <section className="relative bg-wedding-cream py-20 px-4 flex flex-col items-center">
+        <section className="relative bg-wedding-cream py-20 px-4 pb-10 flex flex-col items-center">
             {/* Заголовок */}
             <FadeIn>
                 <div className="text-center mb-16">
@@ -38,7 +46,7 @@ const Timeline = () => {
                 {events.map((event, index) => (
                     <React.Fragment key={index}>
                         {/* БЛОК СОБЫТИЯ */}
-                        <FadeIn delay={0.3}>
+                        <FadeIn delay={0.1 * index}>
                             <div className="text-center flex flex-col items-center w-full px-6">
                                 {/* Время */}
                                 <div className="mb-2">
@@ -57,46 +65,46 @@ const Timeline = () => {
                                     {event.desc}
                                 </p>
 
-                                {/* АДРЕС И ССЫЛКА */}
-                                <a
-                                    href={event.mapLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group flex flex-col items-center"
-                                >
-                                    <div className="flex items-center gap-1.5 mb-1.5">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="12"
-                                            height="12"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            className="text-wedding-red opacity-60 group-hover:opacity-100 transition-opacity"
-                                        >
-                                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                                            <circle cx="12" cy="10" r="3" />
-                                        </svg>
-                                        <span className="font-cormorant text-[10px] uppercase tracking-[0.15em] text-stone-400 group-hover:text-wedding-red transition-colors">
-                                            посмотреть на карте
+                                {/* АДРЕС И ССЫЛКА (показываем только если они есть) */}
+                                {event.address && (
+                                    <a
+                                        href={event.mapLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="group flex flex-col items-center"
+                                    >
+                                        <div className="flex items-center gap-1.5 mb-1.5">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="12"
+                                                height="12"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                strokeWidth="2"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                className="text-wedding-red opacity-60 group-hover:opacity-100 transition-opacity"
+                                            >
+                                                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                                                <circle cx="12" cy="10" r="3" />
+                                            </svg>
+                                            <span className="font-cormorant text-[10px] uppercase tracking-[0.15em] text-stone-400 group-hover:text-wedding-red transition-colors">
+                                                посмотреть на карте
+                                            </span>
+                                        </div>
+                                        <span className="font-cormorant text-xs text-stone-600 border-b border-stone-200 pb-0.5 group-hover:border-wedding-red transition-all max-w-[240px]">
+                                            {event.address}
                                         </span>
-                                    </div>
-                                    <span className="font-cormorant text-xs text-stone-600 border-b border-stone-200 pb-0.5 group-hover:border-wedding-red transition-all max-w-[240px]">
-                                        {event.address}
-                                    </span>
-                                </a>
+                                    </a>
+                                )}
                             </div>
                         </FadeIn>
 
                         {/* ЛИНИЯ-СОЕДИНИТЕЛЬ */}
                         {index < events.length - 1 && (
                             <div className="py-12 flex flex-col items-center">
-                                {/* Пунктирная линия стала длиннее и изящнее */}
                                 <div className="h-14 w-px border-l border-dashed border-stone-300" />
-                                {/* Маленький ромбик в центре */}
                                 <div className="w-1.5 h-1.5 border border-stone-200 rotate-45 mt-3" />
                             </div>
                         )}
