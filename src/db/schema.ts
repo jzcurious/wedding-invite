@@ -17,7 +17,6 @@ export const guests = pgTable("guests", {
 
     // Предпочтения
     preferredDrink: text("preferred_drink"),
-    dietaryNotes: text("dietary_notes"),
 
     // Служебная информация
     createdAt: timestamp("created_at").defaultNow(),

@@ -5,7 +5,7 @@ import FadeIn from "@/components/FadeIn";
 const RSVPForm = () => {
     const [loading, setLoading] = useState(false);
     const [submitted, setSubmitted] = useState(false);
-    const formTopRef = useRef<HTMLDivElement>(null); // Для прокрутки
+    const formTopRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (submitted && formTopRef.current) {
@@ -22,7 +22,6 @@ const RSVPForm = () => {
 
         const formData = new FormData(e.currentTarget);
 
-        // Формируем объект для отправки
         const data = {
             name: formData.get("name"),
             isComingRegistration:
@@ -30,22 +29,18 @@ const RSVPForm = () => {
             isComingBanquet: formData.get("isComingBanquet") === "yes",
             hasChildren: formData.get("hasChildren") === "yes",
             additionalNames: formData.get("additionalNames"),
-            dietaryNotes: formData.get("dietary"),
-            // Собираем все выбранные чекбоксы алкоголя в одну строку
             preferredDrink: formData.getAll("drinks").join(", "),
         };
 
         try {
             const response = await fetch("/api/rsvp", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
             });
 
             if (response.ok) {
-                setSubmitted(true); // Показываем сообщение об успехе и скроллим
+                setSubmitted(true);
             } else {
                 const err = await response.json();
                 alert(err.error || "Произошла ошибка");
@@ -79,7 +74,7 @@ const RSVPForm = () => {
         >
             <FadeIn>
                 <div className="max-w-md mx-auto relative bg-white p-10 sm:p-14 shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-stone-100">
-                    {/* ДЕКОРАТИВНАЯ СКРЕПКА */}
+                    {/* СКРЕПКА */}
                     <div className="absolute top-0 left-12 -translate-y-6 z-20">
                         <svg
                             width="35"
@@ -119,7 +114,7 @@ const RSVPForm = () => {
                                     ].map((option, i) => (
                                         <label
                                             key={`reg-${i}`}
-                                            className="flex items-center group cursor-pointer"
+                                            className="relative flex items-center group cursor-pointer"
                                         >
                                             <input
                                                 type="radio"
@@ -128,8 +123,9 @@ const RSVPForm = () => {
                                                 required
                                                 className="peer appearance-none w-5 h-5 border border-stone-200 checked:border-wedding-red transition-all rounded-full"
                                             />
-                                            <div className="absolute w-5 h-5 flex items-center justify-center pointer-events-none">
-                                                <div className="w-2 h-2 bg-wedding-red rounded-full scale-0 peer-checked:scale-100 transition-transform" />
+                                            {/* Индикатор (точка) */}
+                                            <div className="absolute left-0 w-5 h-5 flex items-center justify-center pointer-events-none scale-0 peer-checked:scale-100 transition-transform">
+                                                <div className="w-2 h-2 bg-wedding-red rounded-full" />
                                             </div>
                                             <span className="ml-8 font-cormorant text-lg text-stone-600 group-hover:text-wedding-red transition-colors">
                                                 {option}
@@ -149,7 +145,7 @@ const RSVPForm = () => {
                                         (option, i) => (
                                             <label
                                                 key={`banquet-${i}`}
-                                                className="flex items-center group cursor-pointer"
+                                                className="relative flex items-center group cursor-pointer"
                                             >
                                                 <input
                                                     type="radio"
@@ -160,8 +156,8 @@ const RSVPForm = () => {
                                                     required
                                                     className="peer appearance-none w-5 h-5 border border-stone-200 checked:border-wedding-red transition-all rounded-full"
                                                 />
-                                                <div className="absolute w-5 h-5 flex items-center justify-center pointer-events-none">
-                                                    <div className="w-2 h-2 bg-wedding-red rounded-full scale-0 peer-checked:scale-100 transition-transform" />
+                                                <div className="absolute left-0 w-5 h-5 flex items-center justify-center pointer-events-none scale-0 peer-checked:scale-100 transition-transform">
+                                                    <div className="w-2 h-2 bg-wedding-red rounded-full" />
                                                 </div>
                                                 <span className="ml-8 font-cormorant text-lg text-stone-600 group-hover:text-wedding-red transition-colors">
                                                     {option}
@@ -172,7 +168,7 @@ const RSVPForm = () => {
                                 </div>
                             </div>
 
-                            {/* НОВЫЙ ВОПРОС: ДЕТИ */}
+                            {/* ВОПРОС 3: ДЕТИ */}
                             <div className="space-y-5">
                                 <p className="font-cormorant text-xl text-stone-800 italic border-b border-stone-100 pb-2 text-balance">
                                     Будут ли с вами дети?
@@ -184,7 +180,7 @@ const RSVPForm = () => {
                                     ].map((option, i) => (
                                         <label
                                             key={`kids-${i}`}
-                                            className="flex items-center group cursor-pointer"
+                                            className="relative flex items-center group cursor-pointer"
                                         >
                                             <input
                                                 type="radio"
@@ -193,8 +189,8 @@ const RSVPForm = () => {
                                                 required
                                                 className="peer appearance-none w-5 h-5 border border-stone-200 checked:border-wedding-red transition-all rounded-full"
                                             />
-                                            <div className="absolute w-5 h-5 flex items-center justify-center pointer-events-none">
-                                                <div className="w-2 h-2 bg-wedding-red rounded-full scale-0 peer-checked:scale-100 transition-transform" />
+                                            <div className="absolute left-0 w-5 h-5 flex items-center justify-center pointer-events-none scale-0 peer-checked:scale-100 transition-transform">
+                                                <div className="w-2 h-2 bg-wedding-red rounded-full" />
                                             </div>
                                             <span className="ml-8 font-cormorant text-lg text-stone-600 group-hover:text-wedding-red transition-colors">
                                                 {option}
@@ -211,10 +207,6 @@ const RSVPForm = () => {
                                     {
                                         id: "additionalNames",
                                         label: "С кем вы будете? (имена)",
-                                    },
-                                    {
-                                        id: "dietary",
-                                        label: "Пожелания по кухне / аллергии",
                                     },
                                 ].map((field) => (
                                     <div
@@ -239,7 +231,7 @@ const RSVPForm = () => {
                                 ))}
                             </div>
 
-                            {/* ПОЖЕЛАНИЯ ПО АЛКОГОЛЮ */}
+                            {/* ПОЖЕЛАНИЯ ПО АЛКОГОЛЮ (ЧЕКБОКСЫ) */}
                             <div className="space-y-5">
                                 <p className="font-cormorant text-xl text-stone-800 italic border-b border-stone-100 pb-2">
                                     Пожелания по алкоголю
@@ -254,7 +246,7 @@ const RSVPForm = () => {
                                     ].map((drink) => (
                                         <label
                                             key={drink}
-                                            className="flex items-center group cursor-pointer"
+                                            className="relative flex items-center group cursor-pointer"
                                         >
                                             <input
                                                 type="checkbox"
@@ -262,8 +254,9 @@ const RSVPForm = () => {
                                                 value={drink}
                                                 className="peer appearance-none w-5 h-5 border border-stone-200 checked:border-wedding-red transition-all"
                                             />
-                                            <div className="absolute w-5 h-5 flex items-center justify-center pointer-events-none">
-                                                <div className="w-2.5 h-2.5 bg-wedding-red scale-0 peer-checked:scale-100 transition-transform" />
+                                            {/* Квадратик-индикатор */}
+                                            <div className="absolute left-0 w-5 h-5 flex items-center justify-center pointer-events-none scale-0 peer-checked:scale-100 transition-transform">
+                                                <div className="w-2.5 h-2.5 bg-wedding-red" />
                                             </div>
                                             <span className="ml-8 font-cormorant text-lg text-stone-600 group-hover:text-wedding-red transition-colors">
                                                 {drink}
@@ -273,7 +266,6 @@ const RSVPForm = () => {
                                 </div>
                             </div>
 
-                            {/* КНОПКА ОТПРАВКИ */}
                             <button
                                 type="submit"
                                 disabled={loading}

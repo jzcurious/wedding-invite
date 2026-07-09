@@ -13,7 +13,6 @@ export async function POST(request: Request) {
             hasChildren: body.hasChildren,
             additionalNames: body.additionalNames,
             preferredDrink: body.preferredDrink,
-            dietaryNotes: body.dietaryNotes,
         });
 
         return NextResponse.json({ success: true });
