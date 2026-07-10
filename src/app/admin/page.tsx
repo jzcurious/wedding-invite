@@ -126,6 +126,7 @@ const AdminPage = () => {
                             {data.filter((g) => g.isComingRegistration).length}
                         </span>
                     </div>
+
                     <div className="bg-white p-8 border border-stone-100 shadow-sm text-center">
                         <span className="block text-stone-400 text-[10px] uppercase tracking-[0.2em] mb-3">
                             Будут на банкете
@@ -134,12 +135,18 @@ const AdminPage = () => {
                             {data.filter((g) => g.isComingBanquet).length}
                         </span>
                     </div>
+
                     <div className="bg-white p-8 border border-stone-100 shadow-sm text-center">
                         <span className="block text-stone-400 text-[10px] uppercase tracking-[0.2em] mb-3">
-                            Кол-во анкет с детьми
+                            С детьми на банкете
                         </span>
                         <span className="text-4xl text-wedding-red">
-                            {data.filter((g) => g.hasChildren).length}
+                            {/* Здесь фильтруем по обоим полям сразу */}
+                            {
+                                data.filter(
+                                    (g) => g.isComingBanquet && g.hasChildren,
+                                ).length
+                            }
                         </span>
                     </div>
                 </div>
