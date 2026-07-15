@@ -35,9 +35,6 @@ const Timeline = () => {
                     <h2 className="font-playfair text-3xl uppercase tracking-widest text-stone-800 mb-2">
                         Тайминг дня
                     </h2>
-                    <p className="font-marck text-2xl text-wedding-red/80">
-                        мы все продумали!
-                    </p>
                 </div>
             </FadeIn>
 

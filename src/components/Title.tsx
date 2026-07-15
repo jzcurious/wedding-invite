@@ -18,7 +18,7 @@ const Title = () => {
             <div className="relative w-64 h-80 border-12 border-white shadow-xl rotate-2">
                 <div className="absolute inset-0 border border-dashed border-stone-300 z-10" />
                 <Image
-                    src="/images/couple.jpeg"
+                    src="/images/couple.jpg"
                     alt="Владимир & Александра"
                     fill
                     priority
