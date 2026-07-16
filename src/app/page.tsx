@@ -21,7 +21,7 @@ export default function WeddingPage() {
             <Delimiter />
 
             <RSVPForm />
-            <TelegramChat telegramLink="https://t.me/твой_чат" />
+            <TelegramChat telegramLink="https://max.ru/join/AiMZwKiZkHxowzdf7_TaMccPzh894hDVX-fa9_T5gzI" />
             <Delimiter />
 
             <CountdownTimer />
